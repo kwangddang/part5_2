@@ -17,13 +17,6 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-       /*val vibrationBtn:Button=findViewById(R.id.btn_vibration)
-       val systemBeepBtn:Button=findViewById(R.id.btn_system_beep)
-       val customBeepBtn:Button=findViewById(R.id.btn_custom_sound)
-
-        vibrationBtn.setOnClickListener(ButtonListener())
-        systemBeepBtn.setOnClickListener(ButtonListener())
-        customBeepBtn.setOnClickListener(ButtonListener())*/
         btn_vibration.setOnClickListener(ButtonListener())
         btn_system_beep.setOnClickListener(ButtonListener())
         btn_custom_sound.setOnClickListener(ButtonListener())
@@ -41,7 +34,7 @@ class MainActivity : AppCompatActivity() {
                 ringtone.play()
             }
             else if(v== btn_custom_sound){
-                val player = MediaPlayer.create(this,R.raw.fallbackring)
+                val player = MediaPlayer.create(this@MainActivity, R.raw.fallbackring)
                 player.start()
             }
         }
