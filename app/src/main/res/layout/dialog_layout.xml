@@ -31,5 +31,5 @@
         android:layout_height="wrap_content"
         android:text="이 컴퓨터에서 항상 허용"
         android:layout_below="@id/text3"
-        android:layout_alignLeft="@id/text3"
+        android:layout_alignLeft="@id/text3"/>
 </RelativeLayout>

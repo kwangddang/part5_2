@@ -14,29 +14,23 @@ import android.widget.DatePicker
 import android.widget.TimePicker
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
+import kotlinx.android.synthetic.main.activity_lab5_2.*
 import java.util.*
 
 
 class Lab5_2Activity : AppCompatActivity(), View.OnClickListener {
-
-    val alertBtn=findViewById(R.id.btn_alert) as Button
-    val listBtn=findViewById(R.id.btn_list) as Button
-    val progressBtn=findViewById(R.id.btn_progress) as Button
-    val dateBtn=findViewById(R.id.btn_date) as Button
-    val timeBtn=findViewById(R.id.btn_time) as Button
-    val customDialogBtn=findViewById(R.id.btn_custom) as Button
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_lab5_2)
 
-        alertBtn.setOnClickListener(this)
-        listBtn.setOnClickListener(this)
-        progressBtn.setOnClickListener(this)
-        dateBtn.setOnClickListener(this)
-        timeBtn.setOnClickListener(this)
-        customDialogBtn.setOnClickListener(this)
+        btn_alert.setOnClickListener(this)
+        btn_list.setOnClickListener(this)
+        btn_progress.setOnClickListener(this)
+        btn_date.setOnClickListener(this)
+        btn_time.setOnClickListener(this)
+        btn_custom.setOnClickListener(this)
 
     }
 
@@ -47,14 +41,15 @@ class Lab5_2Activity : AppCompatActivity(), View.OnClickListener {
 
     val dialogListener = object:DialogInterface.OnClickListener{
         override fun onClick(dialog:DialogInterface, which:Int){
-            if(dialog==customDialog && which=DialogInterface.BUTTON_POSITIVE){
+            if(dialog==btn_custom && which==DialogInterface.BUTTON_POSITIVE){
                 showToast("custom dialog 확인 click.....")
             }
-            else if(dialog==listDialog){
+            else if(dialog==btn_list){
                 val datas=getResources().getStringArray(R.array.dialog_array)
                 showToast("${datas[which]} 선택 하셨습니다.")
+
             }
-            else if(dialog==alertDialog&&which==DialogInterface.BUTTON_POSITIVE){
+            else if(dialog==btn_alert&&which==DialogInterface.BUTTON_POSITIVE){
                 showToast("alert dialog ok click.....")
             }
 
@@ -62,26 +57,26 @@ class Lab5_2Activity : AppCompatActivity(), View.OnClickListener {
     }
 
     override fun onClick(v: View) {
-        if (v == alertBtn) {
+        if (v == btn_alert) {
             val builder = AlertDialog.Builder(this)
             builder.setIcon(android.R.drawable.ic_dialog_alert)
             builder.setTitle("알림")
             builder.setMessage("정말 종료 하시겠습니까?")
             builder.setPositiveButton("OK", dialogListener)
             builder.setNegativeButton("NO", null);
-
-            alertDialog = builder.create()
+            val alertDialog = builder.create()
             alertDialog.show()
-        } else if (v == listBtn) {
+
+        } else if (v == btn_list) {
             val builder = AlertDialog.Builder(this)
             builder.setTitle("알람 벨소리")
             builder.setSingleChoiceItems(R.array.dialog_array, 0, dialogListener)
 
             builder.setPositiveButton("확인", null)
             builder.setNegativeButton("취소", null)
-            listDialog = builder.create()
+            val listDialog = builder.create()
             listDialog.show()
-        } else if (v == progressBtn) {
+        } else if (v == btn_progress) {
             val progressDialog = ProgressDialog(this)
             progressDialog.setIcon(android.R.drawable.ic_dialog_alert)
             progressDialog.setTitle("Wait...")
@@ -91,7 +86,7 @@ class Lab5_2Activity : AppCompatActivity(), View.OnClickListener {
             progressDialog.setIndeterminate(true)
 
             progressDialog.show()
-        } else if (v == dateBtn) {
+        } else if (v == btn_date) {
             val c = Calendar.getInstance()
             val year = c.get(Calendar.YEAR)
             val month = c.get(Calendar.MONTH)
@@ -109,7 +104,7 @@ class Lab5_2Activity : AppCompatActivity(), View.OnClickListener {
                 }, year, month, day)
             dateDialog.show()
         }
-        else if(v==timeBtn){
+        else if(v==btn_time){
             val c=Calendar.getInstance()
             val hour = c.get(Calendar.HOUR_OF_DAY)
             val minute=c.get(Calendar.MINUTE)
@@ -121,7 +116,7 @@ class Lab5_2Activity : AppCompatActivity(), View.OnClickListener {
             },hour,minute,false)
             timeDialog.show()
         }
-        else if(v==customDialogBtn){
+        else if(v==btn_custom){
             val builder =AlertDialog.Builder(this)
             val inflater=getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
             val view:View=inflater.inflate(R.layout.dialog_layout,null)
@@ -129,9 +124,9 @@ class Lab5_2Activity : AppCompatActivity(), View.OnClickListener {
 
             builder.setPositiveButton("확인",dialogListener)
             builder.setNegativeButton("취소",null)
-
-            customDialog=bulder.create()
+            val customDialog = builder.create()
             customDialog.show()
+
         }
     }
 
